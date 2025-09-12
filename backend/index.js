@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
   "http://localhost:5173",   
-  "https://ayu-blogger.vercel.app/",  
+  "https://ayu-blogger.vercel.app",  
 ];
 app.use(
   cors({
