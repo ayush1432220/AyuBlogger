@@ -167,9 +167,18 @@ export default function LoginPage() {
             {/* Google login */}
             <button
               type="button"
-              onClick={() =>
-                (window.location.href =
-                  "http://localhost:3000/user/auth/google")
+              onClick={async() =>{
+                
+                const { data } = await API.get("/user/auth/google"); 
+                console.log(data)
+      if (data?.url) {
+        window.location.href = data.url;
+              }
+              }
+                // (window.location.href =
+                //   "http://localhost:3000/user/auth/google")
+
+                
               }
               className="w-full py-4 px-6 rounded-2xl font-semibold text-white text-lg
                        bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30
