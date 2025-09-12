@@ -39,7 +39,7 @@ app.use(
 
 app.use(
   session({
-    secret: "yourSecretKey",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -69,8 +69,9 @@ app.get("/", async (req, res) => {
 app.use("/user", userRoutes); 
 app.use("/post", postRoutes);
 
+app.use(errorMiddleware);
+
 app.listen(port, () => {
   console.log("Server is running on " + port);
 });
 
-app.use(errorMiddleware);
