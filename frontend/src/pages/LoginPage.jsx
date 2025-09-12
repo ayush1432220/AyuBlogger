@@ -167,16 +167,9 @@ export default function LoginPage() {
             {/* Google login */}
             <button
               type="button"
-              onClick={async() =>{
-                
-                const { data } = await API.get("/user/auth/google"); 
-                console.log(data)
-      if (data?.url) {
-        window.location.href = data.url;
-              }
-              }
-                // (window.location.href =
-                //   "http://localhost:3000/user/auth/google")
+              onClick={async() =>
+                (window.location.href =
+                  "https://ayublogger.onrender.com/user/auth/google")
 
                 
               }
