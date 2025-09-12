@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api";
 import {
   FiHome,
   FiPlusCircle,
@@ -48,7 +48,7 @@ function Navbar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/user/me", {
+        const res = await API.get("/user/me", {
           withCredentials: true,
         });
         console.log(res.data.user._id);
@@ -90,7 +90,7 @@ function Navbar() {
 
   const logoutHandler = async () => {
     try {
-      await axios.get("http://localhost:3000/user/logout", {
+      await API.get("/user/logout", {
         withCredentials: true,
       });
       setIsLoggedIn(false);
