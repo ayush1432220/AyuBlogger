@@ -326,7 +326,7 @@ export const googleAuthLogin = AsyncError(async (req, res, next) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.redirect("http://localhost:5173/");
+    res.redirect(process.env.VITE_API_URL);
   } catch (err) {
     console.log(`Received this error ${err}`);
     return next(new ErrorHandler("Google Auth Failed", 500));

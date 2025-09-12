@@ -28,7 +28,7 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173/",
+    failureRedirect: process.env.VITE_API_URL,
   }),
   googleAuthLogin
 );
