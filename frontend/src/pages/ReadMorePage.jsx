@@ -15,10 +15,10 @@ function ReadMorePage() {
         const res = await API.get(`/post/${id}`);
         setPost(res.data.post);
 
-        // fetch related posts (based on tags or category)
         if (res.data.post?.tags?.length > 0) {
-          const tag = res.data.post.tags[0];
-          const relatedRes = await API.get(`/post?tag=${tag}`);
+          const tags = res.data.post.tags.map((t)=>t.toLowerCase()).join(",");
+          const relatedRes = await API.get(`/post?tags=${tags}`);
+          console.log(relatedRes)
           setRelated(relatedRes.data.posts.filter(p => p._id !== id));
         }
       } catch (err) {
@@ -65,7 +65,6 @@ function ReadMorePage() {
           font-sans
           overflow-y-auto scroll-smooth"
       >
-        {/* LEFT SIDE - Main Post */}
         <article
           className="w-full md:w-2/3 bg-white/30 backdrop-blur-xl border border-white/30
             rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300

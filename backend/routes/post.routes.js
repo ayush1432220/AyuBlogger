@@ -69,7 +69,8 @@ import {
   userPosts,
   likePost,
   commentPost,
-  getPostsByTag
+  getPostsByTags,
+  checkLikeStatus
 } from "../controllers/post.controller.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import multer from "multer";
@@ -84,6 +85,7 @@ router.put("/:id", isLoggedIn, editPost);
 router.delete("/:id", isLoggedIn, deletePost);
 router.post("/:id/like", isLoggedIn, likePost);
 router.post("/:id/comment", isLoggedIn, commentPost);
-router.get("/", getPostsByTag);
+router.get("/", getPostsByTags);
+router.get("/:id/check-like", isLoggedIn, checkLikeStatus);
 
 export default router;

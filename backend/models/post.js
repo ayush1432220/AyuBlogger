@@ -47,6 +47,7 @@ const postSchema = new Schema(
         ref: "User",
       },
     ],
+    comments: [commentSchema],
     comments_count: {
       type: Number,
       default: 0,

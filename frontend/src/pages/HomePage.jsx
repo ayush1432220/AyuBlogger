@@ -11,8 +11,7 @@ function HomePage() {
     const fetchData = async () => {
       try {
         let res = await API.get("/"); 
-        setCards(res.data.post);
-
+        setCards(res.data.posts || res.data.post);
         toast.success("Posts loaded successfully ", { id: "fetchPosts" });
       } catch (err) {
         console.error("Error fetching data", err);
