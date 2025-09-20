@@ -46,29 +46,45 @@ function Navbar() {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
+    // const fetchUser = async () => {
+    //   try {
+    //     const res = await API.get("/user/me", {
+    //       withCredentials: true,
+    //     });
+    //     console.log(res.data.user._id);
+    //     if (res.data && res.data.user.name) {
+    //       setUser({
+    //         name: res.data.user.name,
+    //         profilePic: res.data.user.profile_image_url,
+    //         id: res.data.user._id,
+    //       });
+    //       setIsLoggedIn(true);
+    //     } else {
+    //       setIsLoggedIn(false);
+    //     }
+    //   } catch (error) {
+    //     console.error("Not authenticated or server error:", error);
+    //     setIsLoggedIn(false);
+    //   } finally {
+    //     setIsLoading(false);
+    //   }
+    // };
     const fetchUser = async () => {
-      try {
-        const res = await API.get("/user/me", {
-          withCredentials: true,
-        });
-        console.log(res.data.user._id);
-        if (res.data && res.data.user.name) {
-          setUser({
-            name: res.data.user.name,
-            profilePic: res.data.user.profile_image_url,
-            id: res.data.user._id,
-          });
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error("Not authenticated or server error:", error);
-        setIsLoggedIn(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  try {
+    const res = await API.get("/user/me");
+    if (res.data && res.data.user) {
+      setUser(res.data.user);
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  } catch (err) {
+    setIsLoggedIn(false);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
     fetchUser();
   }, []);
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
@@ -88,19 +104,30 @@ function Navbar() {
     };
   }, [dropdownOpen]);
 
+  // const logoutHandler = async () => {
+  //   try {
+  //     await API.get("/user/logout", {
+  //       withCredentials: true,
+  //     });
+  //     setIsLoggedIn(false);
+  //     setUser({ name: "", profilePic: "" , id:"" });
+  //     closeDropdown();
+  //     navigate("/user/login");
+  //   } catch (err) {
+  //     console.error("Logout failed:", err);
+  //   }
+  // };
   const logoutHandler = async () => {
-    try {
-      await API.get("/user/logout", {
-        withCredentials: true,
-      });
-      setIsLoggedIn(false);
-      setUser({ name: "", profilePic: "" , id:"" });
-      closeDropdown();
-      navigate("/user/login");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  };
+  try {
+    await API.get("/user/logout");
+    setIsLoggedIn(false);
+    setUser({ name: "", profilePic: "", id: "" });
+    navigate("/user/login");
+  } catch (err) {
+    console.error("Logout failed:", err);
+  }
+};
+
 
   const viewProfileHandler = (id) => {
     console.log(`View profile Handler${id}`);

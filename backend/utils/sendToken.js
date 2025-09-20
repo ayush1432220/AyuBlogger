@@ -11,6 +11,8 @@ export const sendToken = (user, statusCode, message, res) => {
     .cookie("token", token, {
       expires: new Date(Date.now() + expireDays * 24 * 60 * 60 * 1000),
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // true on Render
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     })
     .json({
       success: true,
